@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易云音乐</title>
+    <script src="vue.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .one {
+            float: top;
+            width: 1264px;
+            height: 75px;
+            background-color: rgb(231, 73, 73);
+        }
+
+        .prev {
+            float: left;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.103);
+            color: white;
+            margin-left: 40px;
+            margin-top: 22.5px;
+            font-size: 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+
+        .prev2 {
+            float: left;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.103);
+            color: white;
+            margin-left: 430px;
+            margin-top: 16px;
+            font-size: 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+
+        .one input {
+            float: left;
+            margin-top: 22px;
+            width: 200px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.103);
+            margin-left: 20px;
+            text-align: center;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .two {
+            position: absolute;
+            background-color: rgb(255, 255, 255);
+            float: left;
+            width: 260px;
+            /* height: 488px; */
+            height: 700px;
+            border-right: black 1px solid;
+            z-index: 3;
+        }
+
+        .three {
+            /* display: none; */
+            background-color: rgb(255, 255, 255);
+            float: right;
+            width: 871px;
+            height: 460px;
+        }
+
+        .item {
+            float: bottom;
+            display: none;
+            /* background-color: pink; */
+            width: 986px;
+            height: 640px;
+        }
+
+        .tab_list {
+            /* background-color: aquamarine; */
+            width: 2500px;
+            height: 30px;
+        }
+
+        .tab ul {
+            margin-left: 20px;
+        }
+
+        .tab ul li {
+            float: left;
+            list-style: none;
+            color: rgb(80, 80, 80);
+            margin-left: 30px;
+        }
+
+        .tab ul li:hover {
+            color: black;
+        }
+
+        .sort:hover {
+            color: black;
+        }
+
+        .current {
+            font-size: 20px;
+            color: black;
+            border-bottom: 3px solid red;
+        }
+
+        .four {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            background-color: white;
+            width: 1264px;
+            height: 60px;
+            border-top: black 1px solid;
+            z-index: 4;
+        }
+
+        .clickimg img {
+            float: right;
+            width: 50px;
+            height: 40px;
+        }
+
+        h4 {
+            text-indent: 10px;
+            background-color: rgb(245, 245, 245);
+        }
+
+        h3 {
+            text-indent: 10px;
+        }
+
+        p {
+            text-indent: 10px;
+        }
+
+        .gray {
+            color: rgb(90, 90, 90);
+            font-size: 12px;
+        }
+
+        .two p:hover {
+            background-color: rgb(245, 245, 245);
+        }
+
+        span {
+            font-size: 17px;
+            margin-left: 15px;
+            color: rgb(80, 80, 80);
+        }
+
+        span:hover {
+            color: black;
+        }
+
+        .focus {
+            margin-left: 50px;
+            width: 470px;
+            height: 230px;
+        }
+
+        .focus ol {
+            position: absolute;
+            width: 4600px;
+            height: 200px;
+            text-align: center;
+        }
+
+        .screen {
+
+            position: relative;
+            overflow: hidden;
+            width: 600px;
+            height: 300px;
+            margin-left: 80px;
+        }
+
+        .focus ol li {
+            float: left;
+            list-style: none;
+        }
+
+        .focus ol li img {
+            width: 460px;
+            height: 200px;
+        }
+
+        .arrow_l {
+            display: none;
+            position: absolute;
+            text-decoration: none;
+            top: 50%;
+            margin-top: -50px;
+            margin-left: 169px;
+            width: 24px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, .3);
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-family: 'icommon';
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        .arrow_r {
+            display: none;
+            position: absolute;
+            text-decoration: none;
+            top: 50%;
+            margin-top: -50px;
+            margin-left: 605px;
+            width: 24px;
+            height: 40px;
+            background: rgb(0, 0, 0, .3);
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-family: 'icomoon';
+            font-size: 18px;
+            z-index: 2;
+        }
+
+
+        .circle li {
+            float: left;
+            list-style: none;
+            background-color: rgb(112, 0, 0);
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+        }
+
+        .current_ul {
+            color: white;
+        }
+
+        .fp {
+            width: 8px;
+            height: 8px;
+        }
+
+        .enroll {
+            display: none;
+            position: fixed;
+            border: 1px black solid;
+            background-color: rgb(255, 255, 255);
+            margin-left: 400px;
+            margin-top: 10px;
+            width: 400px;
+            height: 480px;
+            z-index: 4;
+        }
+
+        .rankinglist {
+            /* display: none; */
+            position: absolute;
+            margin-top: 74px;
+            margin-left: 285px;
+            background-color: rgb(255, 255, 255);
+            width: 360px;
+            height: 480px;
+            border: 1px rgba(0, 0, 0, 0.267) solid;
+            z-index: 3;
+        }
+
+        .rankinglist ol li:hover {
+            background-color: rgb(245, 245, 245);
+        }
+
+        .song {
+            background-color: rgb(228, 228, 228);
+        }
+
+        .song:hover {
+            background-color: rgb(182, 182, 182);
+        }
+
+        audio {
+            margin-top: 15px;
+            margin-left: 30px;
+            width: 500px;
+            height: 30px;
+        }
+
+        .recommend ul li {
+            float: left;
+            list-style: none;
+        }
+
+        .com_content {
+            position: fixed;
+            border: 1px black solid;
+            background-color: rgb(255, 255, 255);
+            margin-left: 200px;
+            margin-top: 10px;
+            z-index: 4;
+        }
+
+        .lyrics {
+            position: fixed;
+            border: 1px black solid;
+            background-color: rgb(255, 255, 255);
+            margin-left: 400px;
+            margin-top: 10px;
+            height: 500px;
+            z-index: 4;
+        }
+
+        .like_con {
+            position: fixed;
+            border: 1px black solid;
+            background-color: rgb(255, 255, 255);
+            margin-left: 200px;
+            margin-top: 10px;
+            z-index: 4;
+        }
+    </style>
+</head>
+
+<div id="app">
+    <div class="enroll">
+        <button class="enroll_close" style="float:right">x</button><br>
+        <img src="C:\Users\lenovo\Pictures\qq图片\登录图片.png" style="width:400px;height: auto;" />
+        <input type="text" id="phone" v-model="message" placeholder="请输入手机号"
+            style="width:250px;height:25px;margin-left:75px;"><br />
+        <input type="password" id="password" v-model="message" placeholder="请输入密码"
+            style="width:250px;height:25px;margin-left:75px;"><br />
+        <input type="checkbox" style="margin-left:75px;">自动登录<br>
+        <input type="submit" value="登录" @click="getEnroll" id="submit"
+            style=" margin-left:83px;background-color: rgb(231, 55, 55); width: 240px; height: 35px; color: white;"><br>
+        <a href="#" style="margin-left: 185px;color: black;">注册</a><br>
+        <input type="checkbox" style="margin-left: 30px;">同意<a href="#"
+            style="color: rgb(25, 25, 151); text-decoration:none">《服务条款》《隐私政策》《儿童隐私政策》</a>
+    </div>
+    <!-- <div class="user" class="click_enroll" style="width: 150px;">
+        <img>
+    </div> -->
+
+    <div class="com_content" v-show="com_show">
+        <button class="com_close" style="float:right">x</button><br>
+        <h4>评论:</h4>
+        <ul>
+            <li v-for="com in comments">{{com.content}}</li>
+        </ul>
+    </div>
+
+    <div class="lyrics" v-show="ly_show">
+        <button class="ly_close" style="float:right">x</button><br>
+        <h4>歌词:</h4>
+        <p>{{lyrics}}</p>
+    </div>
+
+    <div class="like_con"></div>
+
+    <div class="rankinglist" v-show="rankinglist_show">
+        <p style="color: gray;">热搜榜</p>
+        <ol>
+            <li @click="hotsong" class="hotsong" v-for="hotsong in musicList">{{hotsong.searchWord}}</li>
+        </ol>
+    </div>
+
+    <div class="one">
+        <img src="C:\Users\lenovo\Pictures\qq图片\logo.png" style="float: left; height: 70px;" />
+        <a href="#" class="prev">&lt;</a>
+        <a href="#" class="prev" style="margin-left: 10px;">&gt;</a>
+        <input class="search" type="text" v-model="keywords" @click="hotsong" @keyup.enter="searchMusic"
+            placeholder="大家都在搜 春风十里">
+        <img src="C:\Users\lenovo\Pictures\qq图片\录音.png" style="height: 70px;" />
+        <span class="clickimg">
+            <img src="C:\Users\lenovo\Pictures\qq图片\最小化.png" />
+            <img src="C:\Users\lenovo\Pictures\qq图片\最大化.png" />
+            <img src="C:\Users\lenovo\Pictures\qq图片\mini模式.png" />
+            <img src="C:\Users\lenovo\Pictures\qq图片\信息.png" />
+            <img src="C:\Users\lenovo\Pictures\qq图片\设置.png" />
+            <img src="C:\Users\lenovo\Pictures\qq图片\皮肤.png" />
+            <img class="click_enroll" style="width: 150px;" src="C:\Users\lenovo\Pictures\qq图片\登录.png" />
+        </span>
+    </div>
+    <div class="two">
+        <h4>发现音乐</h4>
+        <p>播客</p>
+        <p>视频</p>
+        <p>关注</p>
+        <p>直播</p>
+        <p>私人FM</p>
+        <p class="gray">我的音乐</p>
+        <p>本地与下载</p>
+        <p>最近播放</p>
+        <p>我的音乐云盘</p>
+        <p>我的播客</p>
+        <p>我的收藏</p>
+        <p class="gray">创建的歌单</p>
+        <p class="like">我喜欢的音乐</p>
+        <p class="gray">收藏的歌单</p>
+    </div>
+
+
+    <div class="three">
+
+
+        <div class="tab">
+            <div class="tab_list">
+                <ul>
+                    <li class="current">个性推荐</li>
+                    <li>专属定制</li>
+                    <li @click="getSquare">歌单</li>
+                    <li>排行榜</li>
+                    <li @click="getAlbum">最新音乐</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab_con">
+            <div class="item" style="display: block">
+                <a href="javascript:;" class="arrow_l">&lt;</a>
+                <a href="javascript:;" class="arrow_r">&gt;</a>
+                <div class="focus">
+                    <div class="screen">
+                        <ol class="focus_ol">
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播1.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播2.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播3.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播4.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播5.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播6.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播7.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播8.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播9.png" /></li>
+                            <li><img src="C:\Users\lenovo\Pictures\qq图片\轮播1.png" /></li>
+                        </ol>
+                    </div>
+                </div>
+                <ul class="circle" style="margin-left: 330px;">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul><br>
+                <div id="fake">
+                    <h2 id="common">搜索 {{keywords}}</h2>
+                    <ol>
+                        <!-- {{song.artists.name}} -->
+                        <li class="song" v-for="song in list">
+                            {{song.album.name}}
+                            <button @click="playMusic(song.id)">播放</button>
+                            <button @click="getLyrics(song.id)">歌词</button>
+                            <button class="comment" @click="getComment(song.id)">评论</button>
+                        </li>
+
+                    </ol>
+
+                </div>
+
+
+                <div class="recommend">
+                    <h3 class="r_song">推荐歌单><button @click="getRecommend">点击获取</button></h3><br>
+                    <ul style="width:1000px;height:300px">
+                        <li>
+                            <div v-for="item in recommend" style="width:180px;height:300px;float:left;">
+                                <img @click="getDetail(item.id)" :src="item.picUrl"
+                                    style="width: 150px; height: 150px; margin-left: 26px;" /><br />
+                                <a @click="getDetail(item.id)" href="javascript:;"
+                                    style="text-decoration: none;color:black">{{item.name}}</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="item">
+                <h3>你的雷达歌单</h3>
+                <p style="color: gray">根据你的红心收藏为你推荐更多宝藏歌曲</p>
+                <h3>享受惬意音乐周末</h3>
+            </div>
+
+            <div class="item">
+                <button
+                    style="width: 80px;height: 30px;border-radius: 20px; background-color: white; border: 1px gray solid;">全部歌单&gt;</button>
+                <ul class="sort"
+                    style="float:right;width: 400px;height: 20px;font-size: 12px; list-style: none;color: rgb(80, 80, 80);">
+                    <li>华语 流行 摇滚 民谣 电子 另类/独立 轻音乐 综艺 影视原声 ACG</li>
+                </ul>
+                <ul style="width: 800px;height: 800px;">
+                    <li style="list-style: none;">
+                        <div v-for="item in squares" style="width:180px;height:300px;float:left">
+                            <img @click="getDetail(item.id)" :src="item.coverImgUrl"
+                                style="width: 150px; height: 150px; margin-left: 26px;" />
+                            <a @click="getDetail(item.id)" href="javascript:;"
+                                style="text-decoration: none;color:black">{{item.name}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="item">
+                <h3>官方榜</h3>
+                <ol>
+                    <li>0.2s</li>
+                    <li>有种</li>
+                    <li>羽生</li>
+                    <li>天知道</li>
+                    <li>丘比特</li>
+                    <p style="color: gray;">查看全部></p>
+                </ol>
+                <ol>
+                    <li>浪漫主义2.0</li>
+                    <li>你从未离去（完整版）</li>
+                    <li>你从未离去（女生完整版）</li>
+                    <li>0.2s</li>
+                    <li>The Joker And The Queen（feat. Taylor Swift)</li>
+                    <p style="color: gray;">查看全部></p>
+                </ol>
+            </div>
+            <div class="item">
+                <button
+                    style="margin-left:300px; width: 150px;height: 30px;border-radius: 20px; background-color: white; border: 1px gray solid;">新歌速递
+                    新歌上架</button><br />
+                <div class="tab">
+                    <ul style="margin-left: 0px;">
+                        <li>全部</li>
+                        <li>华语</li>
+                        <li>欧美</li>
+                        <li>韩国</li>
+                        <li>日本</li>
+                        <li>小语种</li>
+                    </ul>
+                    <button
+                    style="float:right; width: 90px;height: 30px;border-radius: 20px; background-color: white; border: 1px gray solid;">
+                    收藏全部</button>
+                    <button
+                    style="float:right; width: 90px;height: 30px;border-radius: 20px; background-color: red; color:white;border: 1px gray solid;">
+                    播放全部</button>
+                    <ul style="width: 800px;height: 800px;">
+                        <li style="list-style: none;">
+                            <div v-for="item in weekData" style="width:180px;height:auto;float:left">
+                                <img @click="getDetail(item.id)" :src="item.picUrl"
+                                    style="width: 150px; height: 150px; margin-left: 26px;" />
+                                <a @click="getDetail(item.id)" href="#"
+                                    style="text-decoration: none;color:black">{{item.name}}</a>
+                            </div>
+                        </li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="four" v-for="">
+        <a href="javascript:;" class="prev2" id="prev_l">&lt;</a>
+        <a href="javascript:;" class="prev2" id="prev_r" style="margin-left: 10px;">&gt;</a>
+        <audio controls :src="musicUrl"></audio>
+    </div>
+</div>
+<script src="网易云.js"></script>
+
+</body>
+
+</html>
